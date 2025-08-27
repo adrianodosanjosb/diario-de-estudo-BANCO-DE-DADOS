@@ -59,3 +59,82 @@ Dividir as entidades(VENDEDOR é um/Cliente é outra) em tabelas diferentes
 CHAVES PRIMARIAS SÃO UNICAS, SERVEM PARA ASSOCIAR UMA ENTIDADE.
 CHAVE ESTRANGEIRA, é A primaria em outra tabela (pode se dizer que a outra tabela é a tabela completa do que aconteceu)
 ################################################################################################################################
+
+1. SQL - LINGUAGEM DE CONSULTA (QUERY LANGUAGE);
+
+DQL - Linguagem de CONSULTA (SELECT) Recuperar dados;
+DML - Linguagem de Manipulação (INSERT, UPDATE e DELETE);
+DDL - linguagem de definição (CREATE, ALTER, DROP);
+INNER JOY - Junções
+__________________________________________________________________________________________________________________________________________
+2. SELECT (ASSUNTO)
+
+* - COLUNAS 
+(EXEMPLO1: SELECT CLIENTE, SEXO, STATUS FROM CLIENTES) (EXEMPLO2: SELECT * SEXO FROM CLIENTES)
+(EXEMPLO3: SELECT CLIENTE, SEXO, STATUS FROM CLIENTES WHERE STATUS ='SILVER')
+OR - OU UM OU OUTRO
+(EXEMPLO4: SELECT CLIENTE, SEXTO, STATUS FROM CLIENTES WHERE STATUS ='SILVER' OR STATUS ='PLATINUM')
+IN - OPERADOR DE CONJUNTO
+(EXEMPLO5: SELECT CLIENTE, SEXTO STATUS FROM CLIENTE WHERE STATUS IN ('SILVER','PLATINUM')
+LIKE - COM O NOME TAL AE USA O %
+% - CORINGA (%ALB%)
+(EXEMPLO6: SELECT CLIENTE, SEXO, STATUS FROM CLIENTES WHERE CLIENTE LIKE %ALB% )
+
+COMPARACAO (>,<,>=,<=,=)
+SELECT * FROM VENDAS WHERE TOTAL > 6000
+
+ORDENANDO (ORDER)
+SELECT CLIENTE FROM CLIENTE ORDER BY CLIENTE
+select cliente from clientes order by cliente DESC
+select cliente, status from clientes order by cliente DESC, status
+
+BETWEEN  - entre (RESULTADO DENTRO DE UM INTERVALO)
+SELECT * from vendas WHERE total between 6000 and 8000
+
+TOP - LIMITAR COISAS (TOP em ALGUMAS LINGUAGENS e POSTGRES = LIMIT
+SELECT * from VENDAS limit 10
+
+Distinção(DISTINCT) - Tras um de cada sem repetição
+SELECT DISTINCT STATUS FROM CLIENTES
+
+Agregação - SOMAR TODOS OS VALORES, CONTAR, SABER MAIOR VALOR
+Select count(*) from vendas
+Select count(*) from vendas where total > 6000 //ELE CONTA QUANTAS VENDAS FORAM MAIOR QUE 6000
+
+AGRUPANDO (GROUP BY) - agregando conforme a coluna
+SELECT idvendedor, count(idvendedor)
+From Vendas Group by idvendedor
+
+HAVING - mesma agregação/agrupamento com uma condição
+SELECT idvendedor, count(idvendedor)
+From vendas GROUP BY Idvendedor having count(idvendedor) > 40 //retorna as quantidades de vendedor que tiveram mais de 40
+____________________________________________________________________________________________________________________________________
+3. JOIN - Junções de DADOS PK e FK ~~~~ REEESTUDAR MUITO DIFICIL SA PORRA
+
+INNER JOIN - UMA EQUIVALENCIA ENTRE OS DOIS UMA CHAVE PRIMARIA E UMA CHAVE ESTRANGEIRA (VENDA e UM CLIENTE)
+LEFT JOIN - CHAVE PRIMARIA TEM QUE TER EQUIVALENCIA (PK CLIENTE PARA VENDA)
+RIGHT JOIN - CHAVE PRIMEIRA TEM QUE TER EQUIVALENCIA (PK VENDA PARA CLIENTE)
+FULL JOIN -  
+
+3.1 INNER JOIN
+SELECT NOME, TOTAL FROM VENDAS, VENDEDORES WHERE vendas.idvendedor = vendedores.idvendedor //INVOCANDO DUAS TABELAS, quero que uma seja igual a outra (INNER JOIN)
+
+FORMA MAIS COMUM:
+select count(*) from vendas INNER JOIN vendedores on(vendas.idvendedor = vendedores.idvendedor) //BUSCOU 400 VENDAS
+
+3.2 LEFTJOIN
+select count(*) from vendas LEFT JOIN vendedores on(vendas.idvendedor = vendedores.idvendedor) //BUSCOU 400 TAMBEM TODA VENDA TEM 1 VENDEDOR E TODO VENDEDOR TEm 1 VENDA
+
+3.3 RIGHT JOIN
+INSERT INTO vendedores(nome) VALUES ('Fernando Amaral');
+select count(*) from vendas RIGHT JOIN vendedores on(vendas.idvendedor = vendedores.idvendedor) //COMO EU INSERIR MAIS UM AGORA BUSCARÁ 401
+
+APELIDOS (PARA AS TABELAS, DEIXANDO O SQL MAIS DIDATICO)
+SELECT cliente, total from vendas v inner join clientes c on (v.idcliente = c.idcliente)
+
+#####################################################################################################################################################################
+
+ANOTAÇÕES IMPORTANTE PARA AS INSTALAÇÕES
+POSTGRES
+
+
